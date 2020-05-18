@@ -9,12 +9,12 @@ namespace PokerIS.Data
 {
     public class PokerISContext : DbContext
     {
-        
         public PokerISContext(DbContextOptions<PokerISContext> options)
             : base(options)
         {
         }
 
         public DbSet<Table> Table { get; set; }
+        public DbSet<Table> Member { get; set; }
     }
 }

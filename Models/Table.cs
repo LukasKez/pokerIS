@@ -11,6 +11,7 @@ namespace PokerIS.Models
         public int ID { get; set; }
         public int Seats { get; set; }
         public double StartingBet { get; set; }
+
         [DefaultValue(0)]
         public int PlayerCount { get; set; }
     }

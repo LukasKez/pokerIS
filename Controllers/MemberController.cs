@@ -7,26 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PokerIS.Data;
 using PokerIS.Models;
-using PokerIS.Controllers;
 
 namespace PokerIS.Controllers
 {
-    public class TableController : Controller
+    public class MemberController : Controller
     {
         private readonly PokerISContext _context;
 
-        public TableController(PokerISContext context)
+        public MemberController(PokerISContext context)
         {
             _context = context;
         }
 
-        // GET: Table
+        // GET: Members
         public async Task<IActionResult> Index()
         {
-            return View("TableList", await _context.Table.ToListAsync());
+            return View(await _context.Member.ToListAsync());
         }
 
-        // GET: Table/Details/5
+        // GET: Members/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,39 +33,39 @@ namespace PokerIS.Controllers
                 return NotFound();
             }
 
-            var table = await _context.Table
+            var member = await _context.Member
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (table == null)
+            if (member == null)
             {
                 return NotFound();
             }
 
-            return View(table);
+            return View(member);
         }
 
-        // GET: Table/Create
+        // GET: Members/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Table/Create
+        // POST: Members/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Seats,StartingBet,PlayerCount")] Table table)
+        public async Task<IActionResult> Create([Bind("ID,Name,Credits")] Member member)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(table);
+                _context.Add(member);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(table);
+            return View(member);
         }
 
-        // GET: Table/Edit/5
+        // GET: Members/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +73,22 @@ namespace PokerIS.Controllers
                 return NotFound();
             }
 
-            var table = await _context.Table.FindAsync(id);
-            if (table == null)
+            var member = await _context.Member.FindAsync(id);
+            if (member == null)
             {
                 return NotFound();
             }
-            return View(table);
+            return View(member);
         }
 
-        // POST: Table/Edit/5
+        // POST: Members/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Seats,StartingBet,PlayerCount")] Table table)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Credits")] Member member)
         {
-            if (id != table.ID)
+            if (id != member.ID)
             {
                 return NotFound();
             }
@@ -98,12 +97,12 @@ namespace PokerIS.Controllers
             {
                 try
                 {
-                    _context.Update(table);
+                    _context.Update(member);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TableExists(table.ID))
+                    if (!MemberExists(member.ID))
                     {
                         return NotFound();
                     }
@@ -114,10 +113,10 @@ namespace PokerIS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(table);
+            return View(member);
         }
 
-        // GET: Table/Delete/5
+        // GET: Members/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,48 +124,30 @@ namespace PokerIS.Controllers
                 return NotFound();
             }
 
-            var table = await _context.Table
+            var member = await _context.Member
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (table == null)
+            if (member == null)
             {
                 return NotFound();
             }
 
-            return View(table);
+            return View(member);
         }
 
-        // POST: Table/Delete/5
+        // POST: Members/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var table = await _context.Table.FindAsync(id);
-            _context.Table.Remove(table);
+            var member = await _context.Member.FindAsync(id);
+            _context.Member.Remove(member);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TableExists(int id)
+        private bool MemberExists(int id)
         {
-            return _context.Table.Any(e => e.ID == id);
-        }
-
-        // GET: Table/Join/5
-        public async Task<IActionResult> Join(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var table = await _context.Table
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (table == null)
-            {
-                return NotFound();
-            }
-
-            return RedirectToAction("Join", "Game", new { id = id });
+            return _context.Member.Any(e => e.ID == id);
         }
     }
 }
