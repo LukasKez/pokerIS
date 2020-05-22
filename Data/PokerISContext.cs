@@ -15,6 +15,8 @@ namespace PokerIS.Data
         }
 
         public DbSet<Table> Table { get; set; }
-        public DbSet<Table> Member { get; set; }
+        public DbSet<Member> Member { get; set; }
+        public DbSet<Card> Card { get; set; }
+        public DbSet<DeckOfCards> Deck { get; set; }
     }
 }
