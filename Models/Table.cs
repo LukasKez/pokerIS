@@ -14,5 +14,7 @@ namespace PokerIS.Models
 
         [DefaultValue(0)]
         public int PlayerCount { get; set; }
+
+        public int[] Players { get; set; } // all players who joined
     }
 }
