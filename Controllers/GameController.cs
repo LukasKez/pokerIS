@@ -56,5 +56,55 @@ namespace PokerIS.Controllers
 
             return RedirectToAction("Index", "Table");
         }
+        [HttpGet]
+        public IActionResult Game()
+        {
+            DealCards dc = new DealCards();
+            dc.Deal(500, 5000);
+
+            Game data = new Game();
+            data.result = dc.result;
+            data.playerHand = dc.RenameHands(dc.FirstPlayerHand);
+            data.cpuHand = dc.RenameHands(dc.FirstComputerHand);
+            data.flop = dc.RenameHands(dc.FlopHand);
+            data.playerWallet = dc.playerWallet;
+            data.cpuWallet = dc.cpuWallet;
+            data.playerResult = Convert.ToString(dc.winningPlayerHand);
+            data.cpuResult = Convert.ToString(dc.winningCpuHand);
+
+            return View("Views/Game/GameScreen.cshtml", data);
+        }
+
+        [HttpPost]
+        public IActionResult Game(string i, string j)
+        {
+            //logic for checking each wallet (if new game or continue)
+            double player = Convert.ToDouble(i);
+            double cpu = Convert.ToDouble(j);
+            DealCards dc = new DealCards();
+            if (player == 0)
+            {
+                dc.Deal(500, cpu);
+            }
+            else if (cpu <= 0)
+            {
+                dc.Deal(player, 10000);
+            }
+            else
+                dc.Deal(player, cpu);
+
+            //again mapping object to model to pass to view
+            Game data = new Game();
+            data.result = dc.result;
+            data.playerHand = dc.RenameHands(dc.FirstPlayerHand);
+            data.cpuHand = dc.RenameHands(dc.FirstComputerHand);
+            data.flop = dc.RenameHands(dc.FlopHand);
+            data.playerWallet = dc.playerWallet;
+            data.cpuWallet = dc.cpuWallet;
+            data.playerResult = Convert.ToString(dc.winningPlayerHand);
+            data.cpuResult = Convert.ToString(dc.winningCpuHand);
+
+            return View("Views/Game/GameScreen.cshtml", data);
+        }
     }
 }

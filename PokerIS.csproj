@@ -5,13 +5,68 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\images\10C.png" />
+    <None Include="wwwroot\images\10D.png" />
+    <None Include="wwwroot\images\10H.png" />
+    <None Include="wwwroot\images\10S.png" />
+    <None Include="wwwroot\images\2C.png" />
+    <None Include="wwwroot\images\2D.png" />
+    <None Include="wwwroot\images\2H.png" />
+    <None Include="wwwroot\images\2S.png" />
+    <None Include="wwwroot\images\3C.png" />
+    <None Include="wwwroot\images\3D.png" />
+    <None Include="wwwroot\images\3H.png" />
+    <None Include="wwwroot\images\3S.png" />
+    <None Include="wwwroot\images\4C.png" />
+    <None Include="wwwroot\images\4D.png" />
+    <None Include="wwwroot\images\4H.png" />
+    <None Include="wwwroot\images\4S.png" />
+    <None Include="wwwroot\images\5C.png" />
+    <None Include="wwwroot\images\5D.png" />
+    <None Include="wwwroot\images\5H.png" />
+    <None Include="wwwroot\images\5S.png" />
+    <None Include="wwwroot\images\6C.png" />
+    <None Include="wwwroot\images\6D.png" />
+    <None Include="wwwroot\images\6H.png" />
+    <None Include="wwwroot\images\6S.png" />
+    <None Include="wwwroot\images\7C.png" />
+    <None Include="wwwroot\images\7D.png" />
+    <None Include="wwwroot\images\7H.png" />
+    <None Include="wwwroot\images\7S.png" />
+    <None Include="wwwroot\images\8C.png" />
+    <None Include="wwwroot\images\8D.png" />
+    <None Include="wwwroot\images\8H.png" />
+    <None Include="wwwroot\images\8S.png" />
+    <None Include="wwwroot\images\9C.png" />
+    <None Include="wwwroot\images\9D.png" />
+    <None Include="wwwroot\images\9H.png" />
+    <None Include="wwwroot\images\9S.png" />
+    <None Include="wwwroot\images\AC.png" />
+    <None Include="wwwroot\images\AD.png" />
+    <None Include="wwwroot\images\AH.png" />
+    <None Include="wwwroot\images\AS.png" />
+    <None Include="wwwroot\images\JC.png" />
+    <None Include="wwwroot\images\JD.png" />
+    <None Include="wwwroot\images\JH.png" />
+    <None Include="wwwroot\images\JS.png" />
+    <None Include="wwwroot\images\KC.png" />
+    <None Include="wwwroot\images\KD.png" />
+    <None Include="wwwroot\images\KH.png" />
+    <None Include="wwwroot\images\KS.png" />
+    <None Include="wwwroot\images\QC.png" />
+    <None Include="wwwroot\images\QD.png" />
+    <None Include="wwwroot\images\QH.png" />
+    <None Include="wwwroot\images\QS.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
   </ItemGroup>
 
 </Project>

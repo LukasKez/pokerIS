@@ -10,14 +10,14 @@ namespace PokerIS.Models
         public enum Values
         {
             Two = 2, Three, Four, Five, Six, Seven, Eight,
-            Nine, Ten, Jack, Queen, King, Ace
+            Nine, Ten, J, Q, K, A
         }
         public enum Suits
         {
-            Hearts,
-            Spades,
-            Diamonds,
-            Clubs
+            H,
+            S,
+            D,
+            C
         }
         public int ID { get; set; }
         public Values Value { get; set; }
