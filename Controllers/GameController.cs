@@ -31,6 +31,7 @@ namespace PokerIS.Controllers
                 return NotFound();
             }
             table.PlayerCount++;
+            // table.players.add(current player)
             _context.Update(table);
             _context.SaveChanges();
 
@@ -56,6 +57,7 @@ namespace PokerIS.Controllers
 
             return RedirectToAction("Index", "Table");
         }
+
         [HttpGet]
         public IActionResult Game()
         {
