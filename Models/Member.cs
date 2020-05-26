@@ -10,11 +10,5 @@ namespace PokerIS.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public double Credits { get; set; }
-        public Card[] Cards { get; set; }
-
-        public Member()
-        {
-            Cards = new Card[2];
-        }
     }
 }
