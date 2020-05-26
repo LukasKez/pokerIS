@@ -56,11 +56,25 @@ namespace PokerIS.Controllers
 
             return RedirectToAction("Index", "Table");
         }
+
         [HttpGet]
-        public IActionResult Game()
+        public IActionResult Game(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var table = _context.Table.FirstOrDefault(m => m.ID == id);
+
+            if (table == null)
+            {
+                return NotFound();
+            }
+            var user = _context.Member.FirstOrDefault(m => m.ID == 1);
+
             DealCards dc = new DealCards();
-            dc.Deal(500, 5000);
+            dc.Deal(user.Credits, 5000);
 
             Game data = new Game();
             data.result = dc.result;
@@ -71,20 +85,37 @@ namespace PokerIS.Controllers
             data.cpuWallet = dc.cpuWallet;
             data.playerResult = Convert.ToString(dc.winningPlayerHand);
             data.cpuResult = Convert.ToString(dc.winningCpuHand);
+            data.table = table;
 
             return View("Views/Game/GameScreen.cshtml", data);
         }
 
         [HttpPost]
-        public IActionResult Game(string i, string j)
+        public IActionResult Game(int? id, string i, string j)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var table = _context.Table.FirstOrDefault(m => m.ID == id);
+
+            if (table == null)
+            {
+                return NotFound();
+            }
+            var user = _context.Member.FirstOrDefault(m => m.ID == 1);
             //logic for checking each wallet (if new game or continue)
             double player = Convert.ToDouble(i);
             double cpu = Convert.ToDouble(j);
             DealCards dc = new DealCards();
+
+            //jei nebeturi pinigu, ismest is zaidimo
             if (player == 0)
             {
-                dc.Deal(500, cpu);
+                //dc.Deal(500, cpu);
+                
+                return RedirectToAction("GoBack", "Game", new { id=table.ID, credits = 0 });
             }
             else if (cpu <= 0)
             {
@@ -103,8 +134,33 @@ namespace PokerIS.Controllers
             data.cpuWallet = dc.cpuWallet;
             data.playerResult = Convert.ToString(dc.winningPlayerHand);
             data.cpuResult = Convert.ToString(dc.winningCpuHand);
+            data.table = table;
 
             return View("Views/Game/GameScreen.cshtml", data);
+        }
+
+        public IActionResult GoBack(int? id, double credits)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var table = _context.Table.FirstOrDefault(m => m.ID == id);
+
+            if (table == null)
+            {
+                return NotFound();
+            }
+
+            var user = _context.Member.FirstOrDefault(m => m.ID == 1);
+
+            user.Credits = credits;
+            _context.Update(user);
+            _context.SaveChanges();
+
+
+            return View("Views/Game/Index.cshtml", table);
         }
     }
 }

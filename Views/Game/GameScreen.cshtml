@@ -1,8 +1,13 @@
 ﻿@model PokerIS.Models.Game
 @{ViewData["Title"] = "Game Screen";}
 
-
+    
     <div class="game" id="game" style="height:90%">
+        <form asp-controller="Game" asp-action="GoBack" asp-route-id="@Model.table.ID" method="post">
+            <input id="credits" name="credits" type="hidden" value="">
+            <input type="submit" value="Leave game" class="btn btn-primary" />
+        </form>
+
         <div class="col-md-12">
             <div class="col-md-6 col-md-offset-3" id="again" style="display:none;">
                 <div class="row">
@@ -34,7 +39,7 @@
                         }
                     </h2>
                 </div>
-                
+
                 <form asp-controller="Game" asp-action="Game" method="post">
                     <input id="i" name="i" type="hidden" value="">
                     <input id="j" name="j" type="hidden" value="">
@@ -91,7 +96,7 @@
                     }
                     <img style="display:none" id="turn" class="card col-2 border-0" width=150 height="auto" src="~/images/@Model.flop[3]" />
                     <img style="display:none" id="river" class="card col-2 border-0" width=150 height="auto" src="~/images/@Model.flop[4]" />
-                    
+
                 </div>
             </div>
         </div>
@@ -176,11 +181,14 @@
                 document.getElementById('cpuWallet').innerHTML = cpuWallet + ' €';
                 document.getElementById('i').value = wallet;
                 document.getElementById('j').value = cpuWallet;
+                document.getElementById('credits').value = wallet;
+
 
                 break;
         }
     }
-    // initial divs to show at first phase
-    show('playerHand');
-    show('bet');
+        // initial divs to show at first phase
+        show('playerHand');
+        show('bet');
+        document.getElementById('credits').value = wallet;
     </script>

@@ -15,5 +15,6 @@ namespace PokerIS.Models
         public int result { get; set; }
         public string playerResult { get; set; }
         public string cpuResult { get; set; }
+        public Table table { get; set; }
     }
 }
