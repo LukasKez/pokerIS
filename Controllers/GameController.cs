@@ -58,72 +58,55 @@ namespace PokerIS.Controllers
             return RedirectToAction("Index", "Table");
         }
 
-        public IActionResult Fold(int? id) // pirmiau reik sukurti zaisti pokeri
+        [HttpGet]
+        public IActionResult Game()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            DealCards dc = new DealCards();
+            dc.Deal(500, 5000);
 
-            var table = _context.Table.FirstOrDefault(m => m.ID == id);
+            Game data = new Game();
+            data.result = dc.result;
+            data.playerHand = dc.RenameHands(dc.FirstPlayerHand);
+            data.cpuHand = dc.RenameHands(dc.FirstComputerHand);
+            data.flop = dc.RenameHands(dc.FlopHand);
+            data.playerWallet = dc.playerWallet;
+            data.cpuWallet = dc.cpuWallet;
+            data.playerResult = Convert.ToString(dc.winningPlayerHand);
+            data.cpuResult = Convert.ToString(dc.winningCpuHand);
 
-            if (table == null)
-            {
-                return NotFound();
-            }
-            // round.PlayerCount--;
-            //_context.Update.table or game
-            // _context.savechanges
-            return View("Views/Game/Index.cshtml", table);
+            return View("Views/Game/GameScreen.cshtml", data);
         }
 
-        public IActionResult Call(int? id, float called) // pirmiau reik sukurti zaisti pokeri
+        [HttpPost]
+        public IActionResult Game(string i, string j)
         {
-            if (id == null)
+            //logic for checking each wallet (if new game or continue)
+            double player = Convert.ToDouble(i);
+            double cpu = Convert.ToDouble(j);
+            DealCards dc = new DealCards();
+            if (player == 0)
             {
-                return NotFound();
+                dc.Deal(500, cpu);
             }
-
-            var table = _context.Table.FirstOrDefault(m => m.ID == id);
-
-            if (table == null)
+            else if (cpu <= 0)
             {
-                return NotFound();
+                dc.Deal(player, 10000);
             }
-            // round.PlayerCount--;
-            //_context.Update.table or game
-            // _context.savechanges
-            return View("Views/Game/Index.cshtml", table);
+            else
+                dc.Deal(player, cpu);
+
+            //again mapping object to model to pass to view
+            Game data = new Game();
+            data.result = dc.result;
+            data.playerHand = dc.RenameHands(dc.FirstPlayerHand);
+            data.cpuHand = dc.RenameHands(dc.FirstComputerHand);
+            data.flop = dc.RenameHands(dc.FlopHand);
+            data.playerWallet = dc.playerWallet;
+            data.cpuWallet = dc.cpuWallet;
+            data.playerResult = Convert.ToString(dc.winningPlayerHand);
+            data.cpuResult = Convert.ToString(dc.winningCpuHand);
+
+            return View("Views/Game/GameScreen.cshtml", data);
         }
-
-        public IActionResult distributeCards(int? id) 
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var table = _context.Table.FirstOrDefault(m => m.ID == id);
-
-            if (table == null)
-            {
-                return NotFound();
-            }
-
-            var players = table.Players;
-            var Deck = new DeckOfCards();
-            Deck.SetupDeck();
-            var deck = Deck.GetDeck;
-            int i = 0;
-            foreach (var playerid in players)
-            {
-                var player = _context.Member.FirstOrDefault(m => m.ID == playerid);
-                player.Cards = [deck[i], deck[i + 1]];
-                i = i + 2;
-            }
-            return View("Views/Game/Index.cshtml", table);
-        }
-
-
     }
 }
