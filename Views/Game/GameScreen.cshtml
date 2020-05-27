@@ -53,8 +53,26 @@
                     {
                         <button class="btn btn-lg btn-success" onclick="bet(@i)">Bet @i</button>
                     }
+                    <form asp-controller="Game" asp-action="Game" method="post">
+                        <input id="i" name="i" type="hidden" value="@Model.playerWallet">
+                        <input id="j" name="j" type="hidden" value="@Model.cpuWallet">
+                        <input type="submit" value="Fold" class="btn btn-lg btn-danger" />
+                    </form>
                     <button class="btn btn-lg btn-danger" onclick="bet(wallet)">All in</button>
                     <button class="btn btn-lg btn-default" onclick="bet(0)">Check</button>
+                }
+            </div>
+            <div class="col-md-6 col-md-offset-3" id="startbet" style="display:none">
+                <h2>Are you in?</h2>
+                @{
+                    
+                    <button class="btn btn-lg btn-success" onclick="bet(@Model.startingBet)">Bet @Model.startingBet</button>
+                    
+                    <form asp-controller="Game" asp-action="Game" method="post">
+                        <input id="i" name="i" type="hidden" value="@Model.playerWallet">
+                        <input id="j" name="j" type="hidden" value="@Model.cpuWallet">
+                        <input type="submit" value="Fold" class="btn btn-lg btn-danger" />
+                    </form>         
                 }
             </div>
         </div>
@@ -109,6 +127,7 @@
     var stage = 0;
     var wallet = @Model.playerWallet;
     var cpuWallet = @Model.cpuWallet;
+    var startingBet = @Model.startingBet;
     var pot = 0;
 
     //display hidden div
@@ -148,10 +167,11 @@
     function checkStage(){
         switch(stage){
             case 1:
+                hide('startbet')
                 show('flop')
                 show('bet')
                 break;
-            case 2:
+            case 2:                
                 show('turn')
                 show('bet')
                 break;
@@ -187,8 +207,11 @@
                 break;
         }
     }
+
         // initial divs to show at first phase
         show('playerHand');
-        show('bet');
+        show('startbet');
         document.getElementById('credits').value = wallet;
+        document.getElementById('i').value = wallet;
+
     </script>

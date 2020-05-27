@@ -8,6 +8,8 @@ namespace PokerIS.Models
     public class Game
     {
         public double playerWallet { get; set; }
+
+        public double startingBet { get; set; }
         public double cpuWallet { get; set; }
         public string[] playerHand { get; set; }
         public string[] cpuHand { get; set; }

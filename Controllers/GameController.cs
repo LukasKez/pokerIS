@@ -72,12 +72,13 @@ namespace PokerIS.Controllers
             {
                 return NotFound();
             }
-            var user = _context.Member.FirstOrDefault(m => m.ID == 1);
+            var user = _context.Member.FirstOrDefault(m => m.ID == 2);
 
             DealCards dc = new DealCards();
             dc.Deal(user.Credits, 5000);
 
             Game data = new Game();
+            data.startingBet = table.StartingBet;
             data.result = dc.result;
             data.playerHand = dc.RenameHands(dc.FirstPlayerHand);
             data.cpuHand = dc.RenameHands(dc.FirstComputerHand);
@@ -105,9 +106,10 @@ namespace PokerIS.Controllers
             {
                 return NotFound();
             }
-            var user = _context.Member.FirstOrDefault(m => m.ID == 1);
+            var user = _context.Member.FirstOrDefault();
             //logic for checking each wallet (if new game or continue)
             double player = Convert.ToDouble(i);
+            //double player = 60000;
             double cpu = Convert.ToDouble(j);
             DealCards dc = new DealCards();
 
@@ -127,6 +129,7 @@ namespace PokerIS.Controllers
 
             //again mapping object to model to pass to view
             Game data = new Game();
+            data.startingBet = table.StartingBet;
             data.result = dc.result;
             data.playerHand = dc.RenameHands(dc.FirstPlayerHand);
             data.cpuHand = dc.RenameHands(dc.FirstComputerHand);
@@ -154,7 +157,7 @@ namespace PokerIS.Controllers
                 return NotFound();
             }
 
-            var user = _context.Member.FirstOrDefault(m => m.ID == 1);
+            var user = _context.Member.FirstOrDefault();
 
             user.Credits = credits;
             _context.Update(user);
