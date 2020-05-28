@@ -109,10 +109,8 @@ namespace PokerIS.Controllers
             var user = _context.Member.FirstOrDefault();
             //logic for checking each wallet (if new game or continue)
             double player = Convert.ToDouble(i);
-            //double player = 60000;
             double cpu = Convert.ToDouble(j);
             DealCards dc = new DealCards();
-
             //jei nebeturi pinigu, ismest is zaidimo
             if (player == 0)
             {

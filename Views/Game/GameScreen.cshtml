@@ -49,17 +49,14 @@
             <div class="col-md-6 col-md-offset-3" id="bet" style="display:none">
                 <h2>Bet or Check?</h2>
                 @{
+                    <button class="btn btn-lg btn-success" onclick="check()">Check</button>
+                    <button class="btn btn-lg btn-danger" onclick="fold()">Fold</button>
                     for (int i = 50; i < 200; i += 50)
                     {
                         <button class="btn btn-lg btn-success" onclick="bet(@i)">Bet @i</button>
                     }
-                    <form asp-controller="Game" asp-action="Game" method="post">
-                        <input id="i" name="i" type="hidden" value="@Model.playerWallet">
-                        <input id="j" name="j" type="hidden" value="@Model.cpuWallet">
-                        <input type="submit" value="Fold" class="btn btn-lg btn-danger" />
-                    </form>
                     <button class="btn btn-lg btn-danger" onclick="bet(wallet)">All in</button>
-                    <button class="btn btn-lg btn-default" onclick="bet(0)">Check</button>
+
                 }
             </div>
             <div class="col-md-6 col-md-offset-3" id="startbet" style="display:none">
@@ -67,12 +64,7 @@
                 @{
                     
                     <button class="btn btn-lg btn-success" onclick="bet(@Model.startingBet)">Bet @Model.startingBet</button>
-                    
-                    <form asp-controller="Game" asp-action="Game" method="post">
-                        <input id="i" name="i" type="hidden" value="@Model.playerWallet">
-                        <input id="j" name="j" type="hidden" value="@Model.cpuWallet">
-                        <input type="submit" value="Fold" class="btn btn-lg btn-danger" />
-                    </form>         
+                    <button class="btn btn-lg btn-danger" onclick="fold()">Fold</button>        
                 }
             </div>
         </div>
@@ -161,8 +153,34 @@
         }
         hide('bet');
         checkStage();
-    }
+        }
 
+        function check() {
+            stage++;
+            hide('bet');
+            checkStage();
+        }
+
+
+        function fold() {
+            
+            stage = 4;
+            hide('bet')
+            hide('startbet')
+            show('flop')
+            show('turn')
+            show('river')
+            show('cpuHand')
+            show('again')
+            cpuWallet += pot;
+
+
+            document.getElementById('wallet').innerHTML = wallet + ' €';
+            document.getElementById('cpuWallet').innerHTML = cpuWallet + ' €';
+            document.getElementById('i').value = wallet;
+            document.getElementById('j').value = cpuWallet;
+            document.getElementById('credits').value = wallet;
+        }
     //check phase of game to determine which divs to show
     function checkStage(){
         switch(stage){
