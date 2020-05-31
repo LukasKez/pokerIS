@@ -35,7 +35,7 @@ namespace PokerIS.Controllers
             _context.Update(table);
             _context.SaveChanges();
 
-            return View("Views/Game/Index.cshtml", table);
+            return View("Views/Game/TableWindow.cshtml", table);
         }
 
         public IActionResult Leave(int? id)
@@ -161,7 +161,7 @@ namespace PokerIS.Controllers
             _context.SaveChanges();
 
 
-            return View("Views/Game/Index.cshtml", table);
+            return View("Views/Game/TableWindow.cshtml", table);
         }
     }
 }

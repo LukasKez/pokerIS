@@ -1,0 +1,42 @@
+﻿@model PokerIS.Models.Table
+
+@{
+    ViewData["Title"] = "Table";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Table joined</h1>
+
+<div>
+    <h4>Table information</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StartingBet)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StartingBet)
+        </dd>
+        <dt class="col-sm-2">
+            Player count
+        </dt>
+        <dd class="col-sm-10">
+            @Model.PlayerCount/@Model.Seats
+        </dd>
+    </dl>
+</div>
+
+<div class="row">
+    <div class="col-2">
+        <a class="btn btn-primary" asp-action="Game" asp-route-id="@Model.ID" style="@(Model.PlayerCount > 1 ? "display:block" : "display:none")">Join game</a>
+    </div>
+
+    <div class="col-2">
+        <a class="btn btn-info" style="@(Model.PlayerCount > 1 ? "display:block" : "display:none")">Bet on players</a>
+    </div>
+
+    <div class="col-2">
+        <a class="btn btn-danger" style="display:block" asp-action="Leave" asp-route-id="@Model.ID">Leave Table</a>
+    </div>
+</div>
+
